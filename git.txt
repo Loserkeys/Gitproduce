@@ -1,0 +1,141 @@
+
+Git
+今日知识点
+Git的操作
+Git和SVN的区别
+SVN优缺点
+优点：
+管理方便，逻辑明确
+易于管理，集中式服务器更能保证安全性
+代码一致性非常高
+适合开发人数不多的项目开发
+缺点：
+服务器压力太大，数据库容量暴增
+如果不能连接到服务器上，基本上不可以工作，如果服务器不能连接上，就不能提交，还原，对比等等
+不适合开源开发
+Git优缺点
+优点：
+适合分布式开发，强调个体
+公共服务器压力和数据量都不会太大
+速度快，灵活
+任意两个开发者之间可以很容易的解决冲突
+离线工作
+缺点：
+学习周期相对而言比较长
+代码保密性差，一旦开发者把整个库克隆下来就可以完全公开所有代码和版本信息
+Git Bash使用（命令行）
+Git的命令行使用
+Git 本地操作（add commit status –reset hard refglog）实际操作
+注册gitHub账号
+从gitHub或码云上下载项目
+切换到存放git版本库的地方
+Git clone url(github上的地址)
+设置全局用户名（提交代码的时候就会将用户名和邮箱存入版本库中，其他开发人员就可以看到是谁提交的代码）
+git config --global user.name github上的用户名
+设置全局的邮箱
+git config --global user.email 邮箱
+查看全局邮箱
+git config --global user.email
+查看所有配置信息
+git config –list
+master:主分支
+git的三个区
+workspace工作区（当前编辑的代码区）:新添加的，和修改的未add操作的。
+stage暂存区（作为过渡层、避免误操作、保护工作区和版本区、分支处理）:add操作过后，会进入暂存区
+repository版本库（版本控制,本地仓库）：commit操作后，会进入本地仓库
+remote（远程仓库）：push操作后，会提交到远程仓库
+
+
+
+Git命令
+
+
+Git init  初始化仓库
+Git status (查看工作区)
+
+
+Git add 文件名1 文件名2 ……  （将一个或多个文件添加到暂存区）
+Git add .    (将所有工作区的中修改的和新添加的内容加入暂存区)
+或者：   git add –A  (将所有工作区的中修改的和新添加的内容加入暂存区)
+Git add 目录名  (将指定目录加入暂存区)
+
+
+Git commit –m “注释内容”  （将所有文件从暂存区存入版本区）
+Git commit 文件1 文件2 –m “注释内容”    (提交暂存区的指定文件)
+git commit -a -m "注释"  (直接从工作区存入暂存区再存入版本区，-a：存入暂存区，-m:存入版本区)
+git log (查看日志) : 如果版本太多，一次显示不全，想要退出此状态，请按q      --pretty=oneline
+
+
+对比
+Git diff (工作区与暂存区的差异对比)
+Git diff --cached(--staged)  （暂存区也版本库的差异对比）
+Git diff master （工作区与版本库的差异对比）
+
+
+撤销
+Git reset HEAD <file.name> （从暂存区撤销回工作区，发现提交错了，退回一步）
+Git reset HEAD    (撤销上一次add提交的所有文件)
+Git checkout -- <file.name> (从工作区撤销回上一次提交的版本区)
+Git commit --amend （撤销上一次的提交命令，重新提交新的代码）
+
+
+删除
+Git rm <file.name> (如果工作区删除了一个文件，通过此命令可以把暂存区的文件删除)
+Git rm -f <file.name> （如果删除暂存区的文件，那么工作区和暂存区的文件都会删除）
+Git rm --cached <file.name> （只删除暂存区的文件，工作区的文件保留）
+
+
+恢复
+Git checkout （commit id） <指定文件>  （还原删除的文件）
+Git reset -- hard (commit id) （还原版本）
+HEAD^   （返回上一个版本）
+HEAD~<num>  (返回上几个版本)
+Git reflog （操作记录，可以回到当前版本）
+
+
+同步到远程仓库
+Git remote (查看远程仓库的名字)
+–v  （查看远程地址）
+Origin （远程仓库的名字）
+ 
+git push -u origin master -f (强制push到远程仓库)
+多人协作解决冲突
+Git fetch （从远程获取但不与当前代码合并）
+Git diff master origin/master  （查看两个冲突文件的异同）
+Git merge origin/master （合并）
+Git pull（从远程获取并与当前代码合并）
+第二节：应用
+在本地实现git版本操作
+注册gitHub账号
+
+
+
+
+第三节
+Git分支结构(branch checkout merge)
+git branch (查看所有本地分支)
+git branch –r  (查看所有远程分支)
+git branch –a (查看所有本地分支和远程分支)
+git branch 分支名  （创建一个新分支）
+git checkout 分支名 （切换分支）
+git checkout –b 分支名 （创建并切换到新分支）
+git branch –d 分支名 （删除分支）
+git merge 分支名（合并指定分支到当前分支，主分支合并自定义分支）
+Git提交远程分支（git push origin 本地分支 运程分支）
+Git获取运程代码(clone pull)
+Gitignore使用
+有些时候，你必须把某些文件放到git工作目录中，但又不能提交它们，比如保存了数据库密码的配置文件等等，每次git status都会显示untracked files … ,有强迫症的童鞋心里肯定不爽。这个问题解决起来也很简单，在git工作区的根目录下创建一个特殊的(.gitignore)文件，然后把要忽略的文件名填进去，git就会自动忽略这些文件。
+用法规则和语义：
+# 此为注释 – 将被 Git 忽略
+
+*.a       # 忽略所有 .a 结尾的文件
+!lib.a    # 但 lib.a 除外
+/TODO     # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO
+build/    # 忽略 build/ 目录下的所有文件
+doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
+Git提交gulp构建的项目
+第四节：应用
+提交并创建分支下载运程分支，建立项目结构（gulp项目结构）;
+
+
+

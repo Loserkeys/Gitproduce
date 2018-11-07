@@ -121,7 +121,7 @@ git checkout 分支名 （切换分支）
 git checkout –b 分支名 （创建并切换到新分支）
 git branch –d 分支名 （删除分支）
 git merge 分支名（合并指定分支到当前分支，主分支合并自定义分支）
-Git提交远程分支（git push origin 本地分支 运程分支）
+Git提交远程分支（git push origin 本地分支 远程分支）
 Git获取运程代码(clone pull)
 Gitignore使用
 有些时候，你必须把某些文件放到git工作目录中，但又不能提交它们，比如保存了数据库密码的配置文件等等，每次git status都会显示untracked files … ,有强迫症的童鞋心里肯定不爽。这个问题解决起来也很简单，在git工作区的根目录下创建一个特殊的(.gitignore)文件，然后把要忽略的文件名填进去，git就会自动忽略这些文件。
